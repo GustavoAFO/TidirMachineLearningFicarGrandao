@@ -3,6 +3,7 @@
 
 import random
 import csv
+import sys
 
 
 class GeradorExercicios:
@@ -20,7 +21,61 @@ class GeradorExercicios:
                   {'nome': 'Banco adutor', 'categoria': 'perna'},{'nome': 'Encolhimento no smith', 'categoria': 'trapezio'}, 
                   {'nome': 'Agachamento', 'categoria': 'gluteos'},{'nome': 'Banco extensor', 'categoria': 'coxa'}, 
                   {'nome': 'Banco flexor', 'categoria': 'perna'},{'nome': 'Banco abdutor', 'categoria': 'gluteo'}, 
-                  {'nome': 'Abdução quadril', 'categoria': 'gluteo'}]
+                  {'nome': 'Abdução quadril', 'categoria': 'gluteo'},{'nome': 'Encolhimento com halteres', 'categoria': 'trapezio'},
+                  {'nome': 'Encolhimento com barra por trás', 'categoria': 'trapezio'},{'nome': 'Encolhimento com barra pela frente', 'categoria': 'trapezio'},
+                  {'nome': 'Remada alta', 'categoria': 'trapezio'},{'nome': 'Crucifixo invertido na polia', 'categoria': 'trapezio'},
+                  {'nome': 'Crucifixo invertido deitado com halteres', 'categoria': 'trapezio'},{'nome': 'Elevação lateral alternada com polia baixa', 'categoria': 'trapezio'},
+                  {'nome': 'Rosca concentrada', 'categoria': 'biceps'},{'nome': 'Rosca com o cabo', 'categoria': 'biceps'},
+                  {'nome': 'Rosca direta em pe com a barra', 'categoria': 'biceps'},{'nome': 'Barra fixa', 'categoria': 'biceps'},
+                  {'nome': 'Rosca com barra EZ pegada fechada', 'categoria': 'biceps'},{'nome': 'Rosca com barra W pegada fechada', 'categoria': 'biceps'},
+                  {'nome': 'Rosca com barra EZ', 'categoria': 'biceps'},{'nome': 'Rosca com barra W', 'categoria': 'biceps'},
+                  {'nome': 'Rosca com barra EZ pegada aberta', 'categoria': 'biceps'},{'nome': 'Rosca com barra W  pegada aberta', 'categoria': 'biceps'},
+                  {'nome': 'Rosca inclinada', 'categoria': 'biceps'},{'nome': 'Rosca scott', 'categoria': 'biceps'},
+                  {'nome': 'Supino reto com barra', 'categoria': 'peito'},{'nome': 'Supino reto com halteres', 'categoria': 'peito'},
+                  {'nome': 'Flexao basica', 'categoria': 'peito'},{'nome': 'Flexao inclinada', 'categoria': 'peito'},
+                  {'nome': 'Supino inclinado com barra', 'categoria': 'peito'},{'nome': 'Supino inclinado com halteres', 'categoria': 'peito'},
+                  {'nome': 'Voador no cabo com banco inclinado', 'categoria': 'peito'},{'nome': 'Crosshover reto', 'categoria': 'peito'},
+                  {'nome': 'Extensao de triceps deitado', 'categoria': 'triceps'},{'nome': 'Supino no banco reto com pegada fechada', 'categoria': 'triceps'},
+                  {'nome': 'Mergulho no banco', 'categoria': 'triceps'},{'nome': 'Triceps no banco', 'categoria': 'triceps'},
+                  {'nome': 'Extensao de halteres sob a cabeca', 'categoria': 'triceps'},{'nome': 'Mergulho com peso nas paralelas', 'categoria': 'triceps'},
+                  {'nome': 'Mergulho de triceps na maquina', 'categoria': 'triceps'},{'nome': 'Extensao no cabo sob a cabeca com corda', 'categoria': 'triceps'},
+                  {'nome': 'Triceps Frances', 'categoria': 'triceps'},{'nome': 'Triceps Pulley', 'categoria': 'triceps'},
+                  {'nome': 'Barra fixa', 'categoria': 'costas'},{'nome': 'Remada curvada', 'categoria': 'costas'},
+                  {'nome': 'Barra fixa com pegada larga', 'categoria': 'costas'},{'nome': 'Remada unilateral com haltere', 'categoria': 'costas'},
+                  {'nome': 'Pullover com haltere', 'categoria': 'costas'},{'nome': 'Remada baixa sentada', 'categoria': 'costas'},
+                  {'nome': 'Remada em pe na barra T', 'categoria': 'costas'},{'nome': 'Remada curvada com pegada invertida', 'categoria': 'costas'},
+                  {'nome': 'Remada no Smith com pegada invertida', 'categoria': 'costas'},{'nome': 'Pull-down de pegada fechada', 'categoria': 'costas'},
+                  {'nome': 'Pull-down', 'categoria': 'costas'},{'nome': 'Remada no banco inclinado com halteres', 'categoria': 'costas'},
+                  {'nome': 'Elevacao lateral deitado', 'categoria': 'costas'},{'nome': 'Levantamento terra com barra', 'categoria': 'costas'},
+                  {'nome': 'Agachamento frontal', 'categoria': 'costas'},        
+                  {'nome': 'ombros com halteres', 'categoria': 'ombro'},{'nome': 'ombros com barra', 'categoria': 'ombro'},
+                  {'nome': 'Desenvolvimento Arnold', 'categoria': 'ombro'},{'nome': 'Elevacao lateral com halteres', 'categoria': 'ombro'},
+                  {'nome': 'Crucifixo invertido com halteres', 'categoria': 'ombro'},{'nome': 'Flexao hindu', 'categoria': 'ombro'},
+                  {'nome': 'Remada alta em pe com halteres', 'categoria': 'ombro'},{'nome': 'Remada alta no cabo', 'categoria': 'ombro'},
+                  {'nome': 'Remada alta no Smith', 'categoria': 'ombro'},{'nome': 'Voador invertido na maquina', 'categoria': 'ombro'},
+                  {'nome': 'Agachamento', 'categoria': 'perna'},{'nome': 'Levantamento Terra', 'categoria': 'perna'},
+                  {'nome': 'Agachamento Frente', 'categoria': 'perna'},{'nome': 'Agachamento bulgaro', 'categoria': 'perna'},
+                  {'nome': 'Avanco', 'categoria': 'perna'},{'nome': 'Stiff ', 'categoria': 'perna'},
+                  {'nome': 'Deadlift', 'categoria': 'perna'},{'nome': 'Leg Press', 'categoria': 'perna'},
+                  {'nome': 'Agachamento com bola', 'categoria': 'coxa'},{'nome': 'Agachamento pliometrico', 'categoria': 'coxa'},
+                  {'nome': 'Agachamento cossack', 'categoria': 'coxa'},{'nome': 'Agachamento com barra', 'categoria': 'coxa'},
+                  {'nome': 'Avanco', 'categoria': 'coxa'},{'nome': 'Agachamento com o peso do corpo', 'categoria': 'coxa'},
+                  {'nome': 'Agachamento com halter', 'categoria': 'coxa'},{'nome': 'Extensao de pernas', 'categoria': 'coxa'},
+                  {'nome': 'Adutor de coxas', 'categoria': 'coxa'},{'nome': 'Agachamento no Smith', 'categoria': 'coxa'}]
+
+
+
+    def gerarListaNova(self,x):
+        exercicios_novo = []
+        for ex in self.exercicios:
+            if x in ex['categoria']:
+                exercicios_novo.append(ex)
+        return exercicios_novo
+
+    def randomLista(self,lista,num):
+        ex = random.sample(lista,num)
+        return ex
+
     serie = random.randint(2, 4)
 
     def gerarExercicio(self, x):
@@ -140,6 +195,11 @@ class GeradorMedidas:
         else:
             return 'Obesidade severa'
 
+
+
+    def myround(self,x, base=5): 
+        return int(base * round(float(x)/base))
+
     def gerarOmbro(self):
         return round(random.uniform(13, 16.5), 2)
 
@@ -172,18 +232,33 @@ class GeradorMedidas:
 
 
 if __name__ == '__main__':
-    with open('teste.csv', 'w') as csvfile:
+    if(len(sys.argv)<2):
+        print("Insira o nome do banco e a quantidade de dados a ser gerada\npython [nome] [quant]")
+        sys.exit(0)
+    else:
+        nome = sys.argv[1]
+        quantidade = int(sys.argv[2])
+
+    with open(nome, 'w') as csvfile:
         gp = GeradorPessoas()
         ge = GeradorExercicios()
         ga = GeradorAmnase()
         gm = GeradorMedidas()
-
-        campos = ['nome', 'idade', 'altura', 'peso', 'ex1-nome', 'ex1-categoria', 'ex1-serie','ex1-repeticao',
+        
+        #'nome', 
+        campos = ['idade', 'altura', 'peso', 'ex1-nome', 'ex1-categoria', 'ex1-serie','ex1-repeticao',
         'ex2-nome', 'ex2-categoria', 'ex2-serie', 'ex2-repeticao','ex3-nome', 'ex3-categoria', 'ex3-serie', 'ex3-repeticao',
         'ex4-nome', 'ex4-categoria', 'ex4-serie', 'ex4-repeticao','ex5-nome', 'ex5-categoria', 'ex5-serie', 'ex5-repeticao',
         'ex6-nome', 'ex6-categoria', 'ex6-serie', 'ex6-repeticao','ex7-nome', 'ex7-categoria', 'ex7-serie', 'ex7-repeticao',
         'ex8-nome', 'ex8-categoria', 'ex8-serie', 'ex8-repeticao','ex9-nome', 'ex9-categoria', 'ex9-serie', 'ex9-repeticao',
-        'ex10-nome', 'ex10-categoria', 'ex10-serie', 'ex10-repeticao','hipertrofia','lentes_contato','alergia','tabagismo',
+        'ex10-nome', 'ex10-categoria', 'ex10-serie', 'ex10-repeticao',
+        'ex11-nome', 'ex11-categoria', 'ex11-serie', 'ex11-repeticao',
+        'ex12-nome', 'ex12-categoria', 'ex12-serie', 'ex12-repeticao',
+        'ex13-nome', 'ex13-categoria', 'ex13-serie', 'ex13-repeticao',
+        'ex14-nome', 'ex14-categoria', 'ex14-serie', 'ex14-repeticao',
+        'ex15-nome', 'ex15-categoria', 'ex15-serie', 'ex15-repeticao',
+        'esteira','bicicleta',
+        'hipertrofia','lentes_contato','alergia','tabagismo',
         'bebida_alcoolica','medicamento','epilepsia','convulsoes','doenca','cirurgia_plastica','cortes','abrasoes','inchacos',
         'Ombro','Torax','Cintura','Quadris','Pescoco','Biceps','Antebraco','Peito','Coxas','Panturrilha','imc','status_imc']
 
@@ -191,29 +266,77 @@ if __name__ == '__main__':
 
         writer.writeheader()
 
-        for x in range(112):
+        for x in range(quantidade):
             amnase = ga.gerar()
+
+            #Ficha superior A = 5EX
+            peitos = ge.gerarListaNova('peito')
+            peitos = ge.randomLista(peitos,1)
+
+            triceps = ge.gerarListaNova('triceps')
+            triceps = ge.randomLista(triceps,2)
+
+            abdominal = ge.gerarListaNova('abdominal')
+            abdominal = ge.randomLista(abdominal, 1)
+
+            biceps = ge.gerarListaNova('biceps')
+            biceps = ge.randomLista(biceps, 1)
+
+            #Ficha Superior B = 4EX
+            ombro = ge.gerarListaNova('ombro')
+            ombro = ge.randomLista(ombro, 1)
+
+            trapezio = ge.gerarListaNova('trapezio')
+            trapezio = ge.randomLista(trapezio, 2)
+
+            costas = ge.gerarListaNova('costas')
+            costas = ge.randomLista(costas, 1)
+
+            #Ficha Perna C = 6EX
+            perna = ge.gerarListaNova('perna')
+            perna = ge.randomLista(perna, 3)
+
+            gluteos = ge.gerarListaNova('gluteos')
+            gluteos = ge.randomLista(gluteos,1)
+
+            coxa = ge.gerarListaNova('coxa')
+            coxa = ge.randomLista(coxa, 2)
+
+
+
+            
+
             listaEx = ge.gerarExercicio(10)
             serie = random.randint(2, 4)
             repeticao = random.choice([10, 15, 20])
             peso_gerado = gp.gerar_peso()
             altura_gerada = gp.gerar_altura()
             imc_gerado = gm.calculaIMC(peso_gerado,altura_gerada)
-
-            writer.writerow({'nome': gp.gerar_nome_completo(), 'idade': gp.gerar_idade(), 'altura': altura_gerada, 'peso': peso_gerado,
-             'ex1-nome': listaEx[0]['nome'], 'ex1-categoria': listaEx[0]['categoria'], 'ex1-serie': serie, 'ex1-repeticao': repeticao,
-             'ex2-nome': listaEx[1]['nome'], 'ex2-categoria': listaEx[1]['categoria'], 'ex2-serie': serie, 'ex2-repeticao': repeticao,
-             'ex3-nome': listaEx[2]['nome'], 'ex3-categoria': listaEx[2]['categoria'], 'ex3-serie': serie, 'ex3-repeticao': repeticao,
-             'ex4-nome': listaEx[3]['nome'], 'ex4-categoria': listaEx[3]['categoria'], 'ex4-serie': serie, 'ex4-repeticao': repeticao,
-             'ex5-nome': listaEx[4]['nome'], 'ex5-categoria': listaEx[4]['categoria'], 'ex5-serie': serie, 'ex5-repeticao': repeticao,
-             'ex6-nome': listaEx[5]['nome'], 'ex6-categoria': listaEx[5]['categoria'], 'ex6-serie': serie, 'ex6-repeticao': repeticao,
-             'ex7-nome': listaEx[6]['nome'], 'ex7-categoria': listaEx[6]['categoria'], 'ex7-serie': serie, 'ex7-repeticao': repeticao,
-             'ex8-nome': listaEx[7]['nome'], 'ex8-categoria': listaEx[7]['categoria'], 'ex8-serie': serie, 'ex8-repeticao': repeticao,
-             'ex9-nome': listaEx[8]['nome'], 'ex9-categoria': listaEx[8]['categoria'], 'ex9-serie': serie, 'ex9-repeticao': repeticao,
-             'ex10-nome': listaEx[9]['nome'], 'ex10-categoria': listaEx[9]['categoria'], 'ex10-serie': serie, 'ex10-repeticao': repeticao, 
+            status_imc_gerado = gm.statusIMC(imc_gerado)
+            tempo_corrida = imc_gerado/1.5
+            tempo_corrida = gm.myround(tempo_corrida)
+           
+            #'nome': gp.gerar_nome_completo(), 
+            writer.writerow({'idade': gp.gerar_idade(), 'altura': altura_gerada, 'peso': peso_gerado,
+             'ex1-nome': peitos[0]['nome'], 'ex1-categoria': peitos[0]['categoria'], 'ex1-serie': serie, 'ex1-repeticao': repeticao,
+             'ex2-nome': triceps[0]['nome'], 'ex2-categoria': triceps[0]['categoria'], 'ex2-serie': serie, 'ex2-repeticao': repeticao,
+             'ex3-nome': triceps[1]['nome'], 'ex3-categoria': triceps[1]['categoria'], 'ex3-serie': serie, 'ex3-repeticao': repeticao,
+             'ex4-nome': abdominal[0]['nome'], 'ex4-categoria': abdominal[0]['categoria'], 'ex4-serie': serie, 'ex4-repeticao': repeticao,
+             'ex5-nome': biceps[0]['nome'], 'ex5-categoria': biceps[0]['categoria'], 'ex5-serie': serie, 'ex5-repeticao': repeticao,
+             'ex6-nome': ombro[0]['nome'], 'ex6-categoria': ombro[0]['categoria'], 'ex6-serie': serie, 'ex6-repeticao': repeticao,
+             'ex7-nome': trapezio[0]['nome'], 'ex7-categoria': trapezio[0]['categoria'], 'ex7-serie': serie, 'ex7-repeticao': repeticao,
+             'ex8-nome': trapezio[1]['nome'], 'ex8-categoria': trapezio[1]['categoria'], 'ex8-serie': serie, 'ex8-repeticao': repeticao,
+             'ex9-nome': costas[0]['nome'], 'ex9-categoria': costas[0]['categoria'], 'ex9-serie': serie, 'ex9-repeticao': repeticao,
+             'ex10-nome': perna[0]['nome'], 'ex10-categoria': perna[0]['categoria'], 'ex10-serie': serie, 'ex10-repeticao': repeticao, 
+             'ex11-nome': perna[1]['nome'], 'ex11-categoria': perna[1]['categoria'], 'ex11-serie': serie, 'ex11-repeticao': repeticao,
+             'ex12-nome': perna[2]['nome'], 'ex12-categoria': perna[2]['categoria'], 'ex12-serie': serie, 'ex12-repeticao': repeticao,
+             'ex13-nome': gluteos[0]['nome'], 'ex13-categoria': gluteos[0]['categoria'], 'ex13-serie': serie, 'ex13-repeticao': repeticao,
+             'ex14-nome': coxa[0]['nome'], 'ex14-categoria': coxa[0]['categoria'], 'ex14-serie': serie, 'ex14-repeticao': repeticao,
+             'ex15-nome': coxa[1]['nome'], 'ex15-categoria': coxa[1]['categoria'], 'ex15-serie': serie, 'ex15-repeticao': repeticao,
+             'esteira': tempo_corrida,'bicicleta': tempo_corrida,
              'hipertrofia' : amnase[0],'lentes_contato':amnase[1],'alergia':amnase[2],'tabagismo':amnase[3],'bebida_alcoolica':amnase[4],
              'medicamento':amnase[5],'epilepsia':amnase[6],'convulsoes':amnase[7],'doenca':amnase[8],'cirurgia_plastica': amnase[9],
              'cortes':amnase[10],'abrasoes':amnase[11],'inchacos':amnase[12],'Ombro':gm.gerarOmbro(),'Torax':gm.gerarTorax(),'Cintura':gm.gerarCintura(),
              'Quadris':gm.gerarQuadris(),'Pescoco':gm.gerarPescoco(),'Biceps':gm.gerarBiceps(),'Antebraco':gm.gerarAntebraco(),'Peito':gm.gerarPeito(),
-             'Coxas':gm.gerarCoxas(),'Panturrilha':gm.gerarPanturrilha(),'imc':imc_gerado,'status_imc':gm.statusIMC(imc_gerado)
+             'Coxas':gm.gerarCoxas(),'Panturrilha':gm.gerarPanturrilha(),'imc':float("{0:.2f}".format(imc_gerado)),'status_imc':status_imc_gerado
              })
