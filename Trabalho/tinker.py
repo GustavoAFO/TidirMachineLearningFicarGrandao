@@ -55,7 +55,13 @@ if __name__ == '__main__':
         print("Erro - {0}".format(e))
     title()
     
-    df = DataFrame(data)
+    auxiliar = DataFrame(data)
+    auxiliar = auxiliar.as_matrix()
+    ultimo = auxiliar[51]
+    #print(teste[51][0])
+
+    df = DataFrame(data).head(50)
+  
     print(c.BOLD+c.OKBLUE+'[*]Banco de dados utilizado:'+c.ENDC+'\n'+str(df))
 
     entrada = df[['idade','altura','peso','hipertrofia','lentes_contato','alergia',
@@ -63,12 +69,14 @@ if __name__ == '__main__':
     'cirurgia_plastica','cortes','abrasoes','inchacos','Ombro','Torax','Cintura',
     'Quadris','Pescoco','Biceps','Antebraco','Peito','Coxas','Panturrilha','imc']]
 
+   
     print(c.BOLD+c.OKBLUE+'[*]Variaveis de entrada:'+c.ENDC+'\n'+str(entrada))
 
 
 
 class Application:
     def __init__(self, master=None):
+       
         self.fontePadrao = ("Arial", "10")
         self.primeiroContainer = Frame(master)
         self.primeiroContainer["pady"] = 10
@@ -188,7 +196,8 @@ class Application:
         self.idade["font"] = self.fontePadrao
         #self.idade["show"] = "*"
         self.idade.pack(side=LEFT)
-
+        self.idade.insert(0,ultimo[0])
+        
         ## A PARTIR DAQUI NAO SEI DE NADA 
 
         self.alturaLabel = Label(self.terceiroContainer, text="Altura", font=self.fontePadrao)
@@ -225,7 +234,7 @@ class Application:
         self.altura["font"] = self.fontePadrao
         #self.altura["show"] = "*"
         self.altura.pack(side=LEFT)
-
+        self.altura.insert(0,ultimo[1])
 
         self.pesoLabel = Label(self.terceiroContainer, text="Peso", font=self.fontePadrao)
         self.pesoLabel.pack(padx=(15,0),side=LEFT)
@@ -265,7 +274,7 @@ class Application:
         self.peso["font"] = self.fontePadrao
         #self.peso["show"] = "*"
         self.peso.pack(side=LEFT)
-
+        self.peso.insert(0,ultimo[2])
 
         ###############################################################################
         #MEDIDAS CORPORAIS
@@ -281,7 +290,8 @@ class Application:
         self.ombro["width"] = 30
         self.ombro["font"] = self.fontePadrao
         self.ombro.pack(padx=(15,0),side=LEFT)
-  
+        self.ombro.insert(0,ultimo[78])
+
         self.toraxLabel = Label(self.medidas1Container, text="Torax", font=self.fontePadrao)
         self.toraxLabel.pack(padx=(15,0),side=LEFT)
   
@@ -290,7 +300,7 @@ class Application:
         self.torax["font"] = self.fontePadrao
         #self.idade["show"] = "*"
         self.torax.pack(padx=(35,0),side=LEFT)
-
+        self.torax.insert(0,ultimo[79])
         ##
 
 
@@ -301,7 +311,9 @@ class Application:
         self.cintura["width"] = 30
         self.cintura["font"] = self.fontePadrao
         self.cintura.pack(padx=(20,0),side=LEFT)
-  
+        self.cintura.insert(0,ultimo[80])
+
+
         self.quadrisLabel = Label(self.medidas2Container, text="Quadris", font=self.fontePadrao)
         self.quadrisLabel.pack(padx=(15,0),side=LEFT)
   
@@ -310,7 +322,7 @@ class Application:
         self.quadris["font"] = self.fontePadrao
         #self.idade["show"] = "*"
         self.quadris.pack(padx=(25,0),side=LEFT)
-
+        self.quadris.insert(0,ultimo[81])
 
         ##
 
@@ -322,7 +334,10 @@ class Application:
         self.pescoco["width"] = 30
         self.pescoco["font"] = self.fontePadrao
         self.pescoco.pack(padx=(10,0),side=LEFT)
-  
+        self.pescoco.insert(0,ultimo[82])
+
+
+
         self.bicepsLabel = Label(self.medidas3Container, text="Biceps", font=self.fontePadrao)
         self.bicepsLabel.pack(padx=(15,0),side=LEFT)
   
@@ -331,7 +346,7 @@ class Application:
         self.biceps["font"] = self.fontePadrao
         #self.idade["show"] = "*"
         self.biceps.pack(padx=(30,0),side=LEFT)
-
+        self.biceps.insert(0,ultimo[83])
 
 
         ##
@@ -344,7 +359,9 @@ class Application:
         self.antebraco["width"] = 30
         self.antebraco["font"] = self.fontePadrao
         self.antebraco.pack(padx=(2,0),side=LEFT)
-  
+        self.antebraco.insert(0,ultimo[84])
+
+
         self.peitoLabel = Label(self.medidas4Container, text="Peito", font=self.fontePadrao)
         self.peitoLabel.pack(padx=(15,0),side=LEFT)
   
@@ -353,7 +370,7 @@ class Application:
         self.peito["font"] = self.fontePadrao
         #self.idade["show"] = "*"
         self.peito.pack(padx=(40,0),side=LEFT)
-
+        self.peito.insert(0,ultimo[85])
 
 
         ##
@@ -366,7 +383,9 @@ class Application:
         self.coxas["width"] = 30
         self.coxas["font"] = self.fontePadrao
         self.coxas.pack(padx=(25,0),side=LEFT)
-  
+        self.coxas.insert(0,ultimo[86])
+
+
         self.panturrilhasLabel = Label(self.medidas5Container, text="Panturrilhas", font=self.fontePadrao)
         self.panturrilhasLabel.pack(padx=(15,0),side=LEFT)
   
@@ -375,7 +394,7 @@ class Application:
         self.panturrilhas["font"] = self.fontePadrao
         #self.idade["show"] = "*"
         self.panturrilhas.pack(side=LEFT)
-
+        self.panturrilhas.insert(0,ultimo[87])
 
         ##############################################################################
 
@@ -487,6 +506,7 @@ class Application:
         Radiobutton(self.decimoContainer, text="Sim", variable=self.inchaco, value=1).pack(side=LEFT)
         Radiobutton(self.decimoContainer, text="Não", variable=self.inchaco, value=0).pack(side=LEFT)
 
+        self.inchaco.set(1)
 
         self.hiperLabel = Label(self.especialContainer, text="Possui como objetivo 'Hipertrofia'?", font=self.fontePadrao)
         self.hiperLabel.pack(padx=(50,0),side=LEFT)
@@ -500,7 +520,7 @@ class Application:
 
         self.imcValueLabel = Label(self.especialContainer,text="-", font=self.fontePadrao)
         self.imcValueLabel.pack(side=LEFT)
-  
+    
         # self.imc = Entry(self.especialContainer,state="disabled")
         # self.imc["width"] = 10
         # self.imc["font"] = self.fontePadrao
@@ -565,6 +585,7 @@ class Application:
             lista_saidas = ['ex1-nome','ex2-nome','ex3-nome','ex4-nome','ex5-nome',
             'ex6-nome','ex7-nome','ex8-nome','ex9-nome','ex10-nome','ex11-nome','ex12-nome','ex13-nome','ex14-nome','ex15-nome']
             exercicios = []
+            #df.head(100)
             for x in range(15):
                 saidas = df[lista_saidas[x]]
                 classifier = MultinomialNB()
