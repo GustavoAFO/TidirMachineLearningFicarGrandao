@@ -20,7 +20,7 @@ from sklearn.naive_bayes import MultinomialNB
 from utils import CalculadoraMedidas
 from utils import cores
 from tkinter import *
-
+from tkinter import ttk
 
 
 
@@ -55,12 +55,23 @@ if __name__ == '__main__':
         print("Erro - {0}".format(e))
     title()
     
-    auxiliar = DataFrame(data)
-    auxiliar = auxiliar.as_matrix()
-    ultimo = auxiliar[51]
-    #print(teste[51][0])
+    ultimo_var = 106
+    numero_exercicios = 15
+    part_porc = round(100/numero_exercicios)
 
-    df = DataFrame(data).head(50)
+    auxiliar = DataFrame(data)
+    auxiliar = auxiliar.values
+    ultimo = auxiliar[ultimo_var]
+
+    expected = []
+
+    for x in range(3,60,4):
+        expected.append(ultimo[x])
+
+    #print(expected)
+
+
+    df = DataFrame(data).head(105)
   
     print(c.BOLD+c.OKBLUE+'[*]Banco de dados utilizado:'+c.ENDC+'\n'+str(df))
 
@@ -78,104 +89,129 @@ class Application:
     def __init__(self, master=None):
        
         self.fontePadrao = ("Arial", "10")
-        self.primeiroContainer = Frame(master)
+
+        note = ttk.Notebook(master)
+
+        tab1 = ttk.Frame(note)
+        tab2 = ttk.Frame(note)
+       
+
+        #INICIO CONTAINERS -----------------------------------------------------------
+
+        self.primeiroContainer = Frame(tab1)
         self.primeiroContainer["pady"] = 10
         self.primeiroContainer.pack()
-  
-        self.segundoContainer = Frame(master)
+
+        
+        self.segundoContainer = Frame(tab1)
         self.segundoContainer["padx"] = 20
         self.segundoContainer["pady"] = 5
         self.segundoContainer.pack()
 
-        self.terceiroContainer = Frame(master)
+
+        self.terceiroContainer = Frame(tab1)
         self.terceiroContainer["padx"] = 20
         self.terceiroContainer["pady"] = 5
         self.terceiroContainer.pack()
 
-        self.segundoSubtitulo = Frame(master)
+        self.segundoSubtitulo = Frame(tab1)
         self.segundoSubtitulo["pady"] = 10
         self.segundoSubtitulo.pack()
 
-        self.medidas1Container = Frame(master)
+
+        self.medidas1Container = Frame(tab1)
         self.medidas1Container["padx"] = 120
         self.medidas1Container["pady"] = 5
         self.medidas1Container.pack(fill=X)
 
-        self.medidas2Container = Frame(master)
+        self.medidas2Container = Frame(tab1)
         self.medidas2Container["padx"] = 120
         self.medidas2Container["pady"] = 5
         self.medidas2Container.pack(fill=X)
 
-        self.medidas3Container = Frame(master)
+        self.medidas3Container = Frame(tab1)
         self.medidas3Container["padx"] = 120
         self.medidas3Container["pady"] = 5
         self.medidas3Container.pack(fill=X)
 
-        self.medidas4Container = Frame(master)
+        self.medidas4Container = Frame(tab1)
         self.medidas4Container["padx"] = 120
         self.medidas4Container["pady"] = 5
         self.medidas4Container.pack(fill=X)
 
-        self.medidas5Container = Frame(master)
+        self.medidas5Container = Frame(tab1)
         self.medidas5Container["padx"] = 120
         self.medidas5Container["pady"] = 5
         self.medidas5Container.pack(fill=X)
 
 
-        self.primeiroSubtitulo = Frame(master)
+        self.primeiroSubtitulo = Frame(tab1)
         self.primeiroSubtitulo["pady"] = 10
         self.primeiroSubtitulo.pack()
 
         
 
 
-        self.quintoContainer = Frame(master)
+        self.quintoContainer = Frame(tab1)
         self.quintoContainer["padx"] = 120
         self.quintoContainer["pady"] = 5
         self.quintoContainer.pack(fill=X)
 
-        self.sextoContainer = Frame(master)
+        self.sextoContainer = Frame(tab1)
         self.sextoContainer["padx"] = 120
         self.sextoContainer["pady"] = 5
         self.sextoContainer.pack(fill=X)
 
-        self.setimoContainer = Frame(master)
+        self.setimoContainer = Frame(tab1)
         self.setimoContainer["padx"] = 120
         self.setimoContainer["pady"] = 5
         self.setimoContainer.pack(fill=X)
 
 
-        self.oitavoContainer = Frame(master)
+        self.oitavoContainer = Frame(tab1)
         self.oitavoContainer["padx"] = 120
         self.oitavoContainer["pady"] = 5
         self.oitavoContainer.pack(fill=X)
 
-        self.nonoContainer = Frame(master)
+        self.nonoContainer = Frame(tab1)
         self.nonoContainer["padx"] = 120
         self.nonoContainer["pady"] = 5
         self.nonoContainer.pack(fill=X)
 
 
-        self.decimoContainer = Frame(master)
+        self.decimoContainer = Frame(tab1)
         self.decimoContainer["padx"] = 120
         self.decimoContainer["pady"] = 5
         self.decimoContainer.pack(fill=X)
 
 
-        self.especialContainer = Frame(master)
+        self.especialContainer = Frame(tab1)
         self.especialContainer["padx"] = 70
         self.especialContainer["pady"] = 5
         self.especialContainer.pack(fill=X)
   
-        # self.terceiroContainer = Frame(master)
-        # self.terceiroContainer["padx"] = 20
-        # self.segundoContainer["pady"] = 30
-        # self.terceiroContainer.pack()
   
-        self.quartoContainer = Frame(master)
+        self.quartoContainer = Frame(tab1)
         self.quartoContainer["pady"] = 20
         self.quartoContainer.pack()
-  
+
+
+        note.add(tab1, text="Cadastro de ficha")
+        
+
+        self.exerciciosRetornados = Frame(tab2)
+        self.exerciciosRetornados["pady"] = 20
+        self.exerciciosRetornados.pack()
+        
+        note.add(tab2, text="Retorno Algoritmo")
+
+        note.pack()
+
+        #FIM DOS CONTAINERS -------------------------------------------------------
+
+
+
+
         self.titulo = Label(self.primeiroContainer, text="Dados do usuário")
         self.titulo["font"] = ("Arial", "10", "bold")
         self.titulo.pack()
@@ -207,7 +243,7 @@ class Application:
             teste = self.altura.get()
             self.altura.delete(0,END)
             self.altura.insert(0,teste.replace(",","."))
-            if(self.peso.get()):
+            if(self.peso and self.peso.get()):
                
                 #self.imc.config(state="normal")
                
@@ -234,7 +270,7 @@ class Application:
         self.altura["font"] = self.fontePadrao
         #self.altura["show"] = "*"
         self.altura.pack(side=LEFT)
-        self.altura.insert(0,ultimo[1])
+       
 
         self.pesoLabel = Label(self.terceiroContainer, text="Peso", font=self.fontePadrao)
         self.pesoLabel.pack(padx=(15,0),side=LEFT)
@@ -274,7 +310,7 @@ class Application:
         self.peso["font"] = self.fontePadrao
         #self.peso["show"] = "*"
         self.peso.pack(side=LEFT)
-        self.peso.insert(0,ultimo[2])
+        
 
         ###############################################################################
         #MEDIDAS CORPORAIS
@@ -526,7 +562,10 @@ class Application:
         # self.imc["font"] = self.fontePadrao
         # self.imc.pack(side=LEFT)
 
+        self.peso.insert(0,ultimo[2])
+        self.altura.insert(0,ultimo[1])
 
+        self.nome.insert(0,ultimo_var)
         ## VOLTEI A SABER
 
         self.autenticar = Button(self.quartoContainer)
@@ -585,7 +624,7 @@ class Application:
             lista_saidas = ['ex1-nome','ex2-nome','ex3-nome','ex4-nome','ex5-nome',
             'ex6-nome','ex7-nome','ex8-nome','ex9-nome','ex10-nome','ex11-nome','ex12-nome','ex13-nome','ex14-nome','ex15-nome']
             exercicios = []
-            #df.head(100)
+            
             for x in range(15):
                 saidas = df[lista_saidas[x]]
                 classifier = MultinomialNB()
@@ -600,24 +639,37 @@ class Application:
                 #exercicios.append((entrada_do_classificador)[0])
 
             print(c.BOLD+"\n\nFicha:\nExercicios:"+c.FAIL)
+
+            porcentagem = 0
             x=0
             for exercicio in exercicios:
                 x+=1
+
+                if(exercicio in expected):
+                    porcentagem+=part_porc
+
                 print("["+str(x)+"]"+exercicio)
+                self.exerc = Label(self.exerciciosRetornados, text= "["+str(x)+"]"+exercicio)
+                self.exerc.pack()
             print("-----------------------"+c.ENDC)
+            self.porcentagem_acerto = Label(self.exerciciosRetornados, text= "Porcentagem de acerto: " + str(porcentagem))
+            self.porcentagem_acerto.pack()
             #print(exercicios)  
         else:
             self.mensagem["text"] = "Preencha os campos"
             print('input required') 
        
-       
+      
 
 root = Tk()
 root.title("Sistema de evolução continua em processamento de fichas de musculação baseado em machine learning")
 root.resizable(False,False)
-root.geometry("800x650")
+root.geometry("800x800")
 Application(root)
 root.mainloop()
+
+
+
 
 
 
