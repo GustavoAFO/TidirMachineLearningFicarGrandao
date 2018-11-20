@@ -13,6 +13,7 @@ __email__   = "gustavoafonso.gu@gmail.com"
 __version__ = "0.1"
 
 
+from gendb import GenArquivo
 import sys
 import pandas as pd
 from pandas import DataFrame
@@ -42,8 +43,13 @@ def title():
                                                                              |___/ 
                                                                                 """+c.ENDC)
 
-if __name__ == '__main__':
-    #Verifica se esta rodando no python3
+
+data = 'xablau'
+df = 'xablau'
+entrada = 'xablau'
+
+def init():
+    global data, df , entrada
     if sys.version_info < (3,0):
         print("Desculpe, é nessesário Python 3.x para rodar")
         sys.exit(1)
@@ -55,18 +61,7 @@ if __name__ == '__main__':
         print("Erro - {0}".format(e))
     title()
     
-    ultimo_var = 106
-    numero_exercicios = 15
-    part_porc = round(100/numero_exercicios)
-
-    auxiliar = DataFrame(data)
-    auxiliar = auxiliar.values
-    ultimo = auxiliar[ultimo_var]
-
-    expected = []
-
-    for x in range(3,60,4):
-        expected.append(ultimo[x])
+   
 
     #print(expected)
 
@@ -82,6 +77,23 @@ if __name__ == '__main__':
 
    
     print(c.BOLD+c.OKBLUE+'[*]Variaveis de entrada:'+c.ENDC+'\n'+str(entrada))
+    
+
+if __name__ == '__main__':
+    #Verifica se esta rodando no python3
+    init()
+    ultimo_var = 106
+    numero_exercicios = 15
+    part_porc = round(100/numero_exercicios)
+
+    auxiliar = DataFrame(data)
+    auxiliar = auxiliar.values
+    ultimo = auxiliar[ultimo_var]
+
+    expected = []
+
+    for x in range(3,60,4):
+        expected.append(ultimo[x])
 
 
 
@@ -574,10 +586,23 @@ class Application:
         self.autenticar["width"] = 12
         self.autenticar["command"] = self.gerarFicha
         self.autenticar.pack()
+
+        self.autenticar = Button(self.quartoContainer)
+        self.autenticar["text"] = "Gerar Banco"
+        self.autenticar["font"] = self.fontePadrao
+        self.autenticar["width"] = 12
+        self.autenticar["command"] = self.gerarBanco
+        self.autenticar.pack()
   
         self.mensagem = Label(self.quartoContainer, text="", font=self.fontePadrao)
         self.mensagem.pack()
   
+    def gerarBanco(self):
+        gerador = GenArquivo('banco.csv',107)
+        #gerador.gerarNovaBase()
+        init()
+        self.gerarFicha()
+
     #Método gerar ficha
     def gerarFicha(self):
 
@@ -654,6 +679,9 @@ class Application:
             print("-----------------------"+c.ENDC)
             self.porcentagem_acerto = Label(self.exerciciosRetornados, text= "Porcentagem de acerto: " + str(porcentagem))
             self.porcentagem_acerto.pack()
+            print(porcentagem)
+            #if(porcentagem < 63):
+            #    self.gerarBanco()
             #print(exercicios)  
         else:
             self.mensagem["text"] = "Preencha os campos"
