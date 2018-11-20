@@ -49,7 +49,7 @@ df = 'xablau'
 entrada = 'xablau'
 
 def init():
-    global data, df , entrada
+    global data, df , entrada , ultimo , ultimo_var , expected , part_porc
     if sys.version_info < (3,0):
         print("Desculpe, é nessesário Python 3.x para rodar")
         sys.exit(1)
@@ -78,10 +78,6 @@ def init():
    
     print(c.BOLD+c.OKBLUE+'[*]Variaveis de entrada:'+c.ENDC+'\n'+str(entrada))
     
-
-if __name__ == '__main__':
-    #Verifica se esta rodando no python3
-    init()
     ultimo_var = 106
     numero_exercicios = 15
     part_porc = round(100/numero_exercicios)
@@ -95,6 +91,14 @@ if __name__ == '__main__':
     for x in range(3,60,4):
         expected.append(ultimo[x])
 
+    
+
+
+
+if __name__ == '__main__':
+    #Verifica se esta rodando no python3
+    init()
+   
 
 
 class Application:
@@ -244,7 +248,7 @@ class Application:
         self.idade["font"] = self.fontePadrao
         #self.idade["show"] = "*"
         self.idade.pack(side=LEFT)
-        self.idade.insert(0,ultimo[0])
+        
         
         ## A PARTIR DAQUI NAO SEI DE NADA 
 
@@ -338,7 +342,7 @@ class Application:
         self.ombro["width"] = 30
         self.ombro["font"] = self.fontePadrao
         self.ombro.pack(padx=(15,0),side=LEFT)
-        self.ombro.insert(0,ultimo[78])
+        
 
         self.toraxLabel = Label(self.medidas1Container, text="Torax", font=self.fontePadrao)
         self.toraxLabel.pack(padx=(15,0),side=LEFT)
@@ -348,7 +352,7 @@ class Application:
         self.torax["font"] = self.fontePadrao
         #self.idade["show"] = "*"
         self.torax.pack(padx=(35,0),side=LEFT)
-        self.torax.insert(0,ultimo[79])
+        
         ##
 
 
@@ -359,7 +363,7 @@ class Application:
         self.cintura["width"] = 30
         self.cintura["font"] = self.fontePadrao
         self.cintura.pack(padx=(20,0),side=LEFT)
-        self.cintura.insert(0,ultimo[80])
+        
 
 
         self.quadrisLabel = Label(self.medidas2Container, text="Quadris", font=self.fontePadrao)
@@ -370,7 +374,8 @@ class Application:
         self.quadris["font"] = self.fontePadrao
         #self.idade["show"] = "*"
         self.quadris.pack(padx=(25,0),side=LEFT)
-        self.quadris.insert(0,ultimo[81])
+        
+        
 
         ##
 
@@ -382,7 +387,8 @@ class Application:
         self.pescoco["width"] = 30
         self.pescoco["font"] = self.fontePadrao
         self.pescoco.pack(padx=(10,0),side=LEFT)
-        self.pescoco.insert(0,ultimo[82])
+        
+        
 
 
 
@@ -394,7 +400,8 @@ class Application:
         self.biceps["font"] = self.fontePadrao
         #self.idade["show"] = "*"
         self.biceps.pack(padx=(30,0),side=LEFT)
-        self.biceps.insert(0,ultimo[83])
+
+        
 
 
         ##
@@ -407,7 +414,9 @@ class Application:
         self.antebraco["width"] = 30
         self.antebraco["font"] = self.fontePadrao
         self.antebraco.pack(padx=(2,0),side=LEFT)
-        self.antebraco.insert(0,ultimo[84])
+
+
+        
 
 
         self.peitoLabel = Label(self.medidas4Container, text="Peito", font=self.fontePadrao)
@@ -418,7 +427,9 @@ class Application:
         self.peito["font"] = self.fontePadrao
         #self.idade["show"] = "*"
         self.peito.pack(padx=(40,0),side=LEFT)
-        self.peito.insert(0,ultimo[85])
+
+
+        
 
 
         ##
@@ -431,7 +442,8 @@ class Application:
         self.coxas["width"] = 30
         self.coxas["font"] = self.fontePadrao
         self.coxas.pack(padx=(25,0),side=LEFT)
-        self.coxas.insert(0,ultimo[86])
+
+        
 
 
         self.panturrilhasLabel = Label(self.medidas5Container, text="Panturrilhas", font=self.fontePadrao)
@@ -442,7 +454,9 @@ class Application:
         self.panturrilhas["font"] = self.fontePadrao
         #self.idade["show"] = "*"
         self.panturrilhas.pack(side=LEFT)
-        self.panturrilhas.insert(0,ultimo[87])
+
+
+        
 
         ##############################################################################
 
@@ -574,10 +588,23 @@ class Application:
         # self.imc["font"] = self.fontePadrao
         # self.imc.pack(side=LEFT)
 
+
+        self.idade.insert(0,ultimo[0])
+        self.ombro.insert(0,ultimo[78])
+        self.torax.insert(0,ultimo[79])
+        self.cintura.insert(0,ultimo[80])
+        self.quadris.insert(0,ultimo[81])
+        self.pescoco.insert(0,ultimo[82])
+        self.biceps.insert(0,ultimo[83])
+        self.antebraco.insert(0,ultimo[84])
+        self.peito.insert(0,ultimo[85])
+        self.coxas.insert(0,ultimo[86])
+        self.panturrilhas.insert(0,ultimo[87])
         self.peso.insert(0,ultimo[2])
         self.altura.insert(0,ultimo[1])
 
         self.nome.insert(0,ultimo_var)
+        
         ## VOLTEI A SABER
 
         self.autenticar = Button(self.quartoContainer)
@@ -587,12 +614,12 @@ class Application:
         self.autenticar["command"] = self.gerarFicha
         self.autenticar.pack()
 
-        self.autenticar = Button(self.quartoContainer)
-        self.autenticar["text"] = "Gerar Banco"
-        self.autenticar["font"] = self.fontePadrao
-        self.autenticar["width"] = 12
-        self.autenticar["command"] = self.gerarBanco
-        self.autenticar.pack()
+        # self.autenticar = Button(self.quartoContainer)
+        # self.autenticar["text"] = "Gerar Banco"
+        # self.autenticar["font"] = self.fontePadrao
+        # self.autenticar["width"] = 12
+        # self.autenticar["command"] = self.gerarBanco
+        # self.autenticar.pack()
   
         self.mensagem = Label(self.quartoContainer, text="", font=self.fontePadrao)
         self.mensagem.pack()
@@ -601,13 +628,40 @@ class Application:
         gerador = GenArquivo('banco.csv',107)
         #gerador.gerarNovaBase()
         init()
+
+        self.idade.delete(0,END)
+        self.ombro.delete(0,END)
+        self.torax.delete(0,END)
+        self.cintura.delete(0,END)
+        self.quadris.delete(0,END)
+        self.pescoco.delete(0,END)
+        self.biceps.delete(0,END)
+        self.antebraco.delete(0,END)
+        self.peito.delete(0,END)
+        self.coxas.delete(0,END)
+        self.panturrilhas.delete(0,END)
+        self.peso.delete(0,END)
+        self.altura.delete(0,END)
+
+        self.idade.insert(0,ultimo[0])
+        self.ombro.insert(0,ultimo[78])
+        self.torax.insert(0,ultimo[79])
+        self.cintura.insert(0,ultimo[80])
+        self.quadris.insert(0,ultimo[81])
+        self.pescoco.insert(0,ultimo[82])
+        self.biceps.insert(0,ultimo[83])
+        self.antebraco.insert(0,ultimo[84])
+        self.peito.insert(0,ultimo[85])
+        self.coxas.insert(0,ultimo[86])
+        self.panturrilhas.insert(0,ultimo[87])
+        self.peso.insert(0,ultimo[2])
+        self.altura.insert(0,ultimo[1])
+        
+        
         self.gerarFicha()
 
     #Método gerar ficha
     def gerarFicha(self):
-
-       
-        
 
         if (self.nome.get() and
         self.idade.get() and
@@ -623,19 +677,6 @@ class Application:
         self.peito.get() and
         self.coxas.get() and
         self.panturrilhas.get()
-        # self.lentes.get() and 
-        # self.alergia.get() and 
-        # self.tabagista.get() and 
-        # self.bebidas.get() and
-        # self.medicamentos.get() and 
-        # self.epilepsia.get() and
-        # self.convulsao.get() and
-        # self.doenca.get() and
-        # self.cirurgia.get() and
-        # self.corte.get() and 
-        # self.abrasao.get() and
-        # self.inchaco.get() and
-        #self.hipertrofia.get()
         ):
             self.mensagem["text"] = ""
 
@@ -668,6 +709,7 @@ class Application:
             porcentagem = 0
             x=0
             for exercicio in exercicios:
+               
                 x+=1
 
                 if(exercicio in expected):
@@ -676,12 +718,15 @@ class Application:
                 print("["+str(x)+"]"+exercicio)
                 self.exerc = Label(self.exerciciosRetornados, text= "["+str(x)+"]"+exercicio)
                 self.exerc.pack()
+            
             print("-----------------------"+c.ENDC)
             self.porcentagem_acerto = Label(self.exerciciosRetornados, text= "Porcentagem de acerto: " + str(porcentagem))
             self.porcentagem_acerto.pack()
+            
             print(porcentagem)
-            #if(porcentagem < 63):
-            #    self.gerarBanco()
+           
+            # if(porcentagem < 63):
+            #     self.gerarBanco()
             #print(exercicios)  
         else:
             self.mensagem["text"] = "Preencha os campos"
