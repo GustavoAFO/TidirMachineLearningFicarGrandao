@@ -103,7 +103,7 @@ if __name__ == '__main__':
 
 class Application:
     def __init__(self, master=None):
-       
+        global note, tab2
         self.fontePadrao = ("Arial", "10")
 
         note = ttk.Notebook(master)
@@ -662,6 +662,17 @@ class Application:
 
     #Método gerar ficha
     def gerarFicha(self):
+        
+        self.exerciciosRetornados.destroy()
+        #self.exerciciosRetornados.pack()
+
+        self.exerciciosRetornados = Frame(tab2)
+        self.exerciciosRetornados["pady"] = 20
+        self.exerciciosRetornados.pack()
+        
+        note.add(tab2, text="Retorno Algoritmo")
+
+        note.pack()
 
         if (self.nome.get() and
         self.idade.get() and
@@ -714,12 +725,19 @@ class Application:
 
                 if(exercicio in expected):
                     porcentagem+=part_porc
+                    self.exerc = Label(self.exerciciosRetornados, text= "["+str(x)+"]"+exercicio + ' CORRETO')
+                else:
+                    self.exerc = Label(self.exerciciosRetornados, text= "["+str(x)+"]"+exercicio)
 
                 print("["+str(x)+"]"+exercicio)
-                self.exerc = Label(self.exerciciosRetornados, text= "["+str(x)+"]"+exercicio)
+                #self.exerc = Label(self.exerciciosRetornados, text= "["+str(x)+"]"+exercicio)
                 self.exerc.pack()
             
             print("-----------------------"+c.ENDC)
+            self.exerc = Label(self.exerciciosRetornados, text= "-----------------------")
+            self.exerc.pack()
+
+
             self.porcentagem_acerto = Label(self.exerciciosRetornados, text= "Porcentagem de acerto: " + str(porcentagem))
             self.porcentagem_acerto.pack()
             
