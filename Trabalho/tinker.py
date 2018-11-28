@@ -48,8 +48,14 @@ data = 'xablau'
 df = 'xablau'
 entrada = 'xablau'
 
+
+ultimo_var = 105
+valor_head = 106
+teste = []
+acuracia = 0
+
 def init():
-    global data, df , entrada , ultimo , ultimo_var , expected , part_porc
+    global data, df , entrada , ultimo , ultimo_var , expected , part_porc , valor_head
     if sys.version_info < (3,0):
         print("Desculpe, é nessesário Python 3.x para rodar")
         sys.exit(1)
@@ -61,12 +67,7 @@ def init():
         print("Erro - {0}".format(e))
     title()
     
-   
-
-    #print(expected)
-
-
-    df = DataFrame(data).head(105)
+    df = DataFrame(data).head(valor_head)
   
     print(c.BOLD+c.OKBLUE+'[*]Banco de dados utilizado:'+c.ENDC+'\n'+str(df))
 
@@ -75,21 +76,26 @@ def init():
     'cirurgia_plastica','cortes','abrasoes','inchacos','Ombro','Torax','Cintura',
     'Quadris','Pescoco','Biceps','Antebraco','Peito','Coxas','Panturrilha','imc']]
 
-   
     print(c.BOLD+c.OKBLUE+'[*]Variaveis de entrada:'+c.ENDC+'\n'+str(entrada))
     
-    ultimo_var = 106
-    numero_exercicios = 15
-    part_porc = round(100/numero_exercicios)
+    
+    if(int(ultimo_var) < int(106)):
+        ultimo_var = ultimo_var + 1
+        numero_exercicios = 15
+        part_porc = round(100/numero_exercicios)
 
-    auxiliar = DataFrame(data)
-    auxiliar = auxiliar.values
-    ultimo = auxiliar[ultimo_var]
+        auxiliar = DataFrame(data)
+        auxiliar = auxiliar.values
+        ultimo = auxiliar[ultimo_var]
 
-    expected = []
+        expected = []
 
-    for x in range(3,60,4):
-        expected.append(ultimo[x])
+        for x in range(3,60,4):
+            expected.append(ultimo[x])
+    else:
+        ultimo_var = 'Null'
+
+    
 
     
 
@@ -620,12 +626,61 @@ class Application:
         # self.autenticar["width"] = 12
         # self.autenticar["command"] = self.gerarBanco
         # self.autenticar.pack()
+
+        self.autenticar = Button(self.quartoContainer)
+        self.autenticar["text"] = "Testar Algoritmo"
+        self.autenticar["font"] = self.fontePadrao
+        self.autenticar["width"] = 12
+        self.autenticar["command"] = self.testarAlgoritmo
+        self.autenticar.pack()
+
+        self.autenticar = Button(self.quartoContainer)
+        self.autenticar["text"] = "Ultimo"
+        self.autenticar["font"] = self.fontePadrao
+        self.autenticar["width"] = 12
+        self.autenticar["command"] = self.pegarUltimo
+        self.autenticar.pack()
   
         self.mensagem = Label(self.quartoContainer, text="", font=self.fontePadrao)
         self.mensagem.pack()
   
+    def pegarUltimo(self):
+        global ultimo_var , valor_head
+        ultimo_var = 105
+        valor_head = 106
+        init()
+
+        self.idade.delete(0,END)
+        self.ombro.delete(0,END)
+        self.torax.delete(0,END)
+        self.cintura.delete(0,END)
+        self.quadris.delete(0,END)
+        self.pescoco.delete(0,END)
+        self.biceps.delete(0,END)
+        self.antebraco.delete(0,END)
+        self.peito.delete(0,END)
+        self.coxas.delete(0,END)
+        self.panturrilhas.delete(0,END)
+        self.peso.delete(0,END)
+        self.altura.delete(0,END)
+
+        self.idade.insert(0,ultimo[0])
+        self.ombro.insert(0,ultimo[78])
+        self.torax.insert(0,ultimo[79])
+        self.cintura.insert(0,ultimo[80])
+        self.quadris.insert(0,ultimo[81])
+        self.pescoco.insert(0,ultimo[82])
+        self.biceps.insert(0,ultimo[83])
+        self.antebraco.insert(0,ultimo[84])
+        self.peito.insert(0,ultimo[85])
+        self.coxas.insert(0,ultimo[86])
+        self.panturrilhas.insert(0,ultimo[87])
+        self.peso.insert(0,ultimo[2])
+        self.altura.insert(0,ultimo[1])
+    
     def gerarBanco(self):
-        gerador = GenArquivo('banco.csv',107)
+        global acuracia, teste
+        #gerador = GenArquivo('banco.csv',107)
         #gerador.gerarNovaBase()
         init()
 
@@ -658,7 +713,115 @@ class Application:
         self.altura.insert(0,ultimo[1])
         
         
-        self.gerarFicha()
+        #self.gerarFicha()
+        if(ultimo_var != 'Null'):
+            self.testarAlgoritmo()
+        else:
+            print(acuracia)
+            print(len(teste))
+            print(acuracia / len(teste))
+            self.separador = Label(self.exerciciosRetornados, text= "-----------------------")
+            self.separador.pack()
+            self.separador = Label(self.exerciciosRetornados, text= "Acurácia: " + str(acuracia / len(teste)))
+            self.separador.pack()
+       
+
+
+
+    def testarAlgoritmo(self):
+        global ultimo_var , valor_head , acuracia ,teste
+
+        if(ultimo_var != 85 and valor_head != 86):
+            ultimo_var = 85
+            valor_head = 86
+            self.exerciciosRetornados.destroy()
+          
+
+            self.exerciciosRetornados = Frame(tab2)
+            self.exerciciosRetornados["pady"] = 20
+            self.exerciciosRetornados.pack()
+            
+            note.add(tab2, text="Retorno Algoritmo")
+
+            note.pack()
+            init()
+
+
+        if (self.nome.get() and
+        self.idade.get() and
+        self.altura.get() and
+        self.peso.get() and
+        self.ombro.get() and
+        self.torax.get() and
+        self.cintura.get() and
+        self.quadris.get() and
+        self.pescoco.get() and
+        self.biceps.get() and
+        self.antebraco.get() and
+        self.peito.get() and
+        self.coxas.get() and
+        self.panturrilhas.get()
+        ):
+            self.mensagem["text"] = ""
+
+            imc = float(self.imcValueLabel["text"])
+            print("[Calculo de IMC] %s"%imc)
+           
+
+            #Classificador
+            lista_saidas = ['ex1-nome','ex2-nome','ex3-nome','ex4-nome','ex5-nome',
+            'ex6-nome','ex7-nome','ex8-nome','ex9-nome','ex10-nome','ex11-nome','ex12-nome','ex13-nome','ex14-nome','ex15-nome']
+            exercicios = []
+            
+            for x in range(15):
+                saidas = df[lista_saidas[x]]
+                classifier = MultinomialNB()
+                classifier.fit(entrada.values, saidas.values)
+                entrada_do_classificador = [[int(self.idade.get()),float(self.altura.get()),float(self.peso.get()),int( self.hipertrofia.get()),int(self.lentes.get()),int(self.alergia.get()),int(
+                self.tabagista.get()),int(self.bebidas.get()),int(self.medicamentos.get()),int(self.epilepsia.get()),int(self.convulsao.get()),int(self.doenca.get()),int(
+                self.cirurgia.get()),int(self.corte.get()),int(self.abrasao.get()),int(self.inchaco.get()),float(self.ombro.get()),float(self.torax.get()),float(self.cintura.get()),float(self.quadris.get()),float(
+                self.pescoco.get()),float(self.biceps.get()),float(self.antebraco.get()),float(self.peito.get()),float(self.coxas.get()),float(self.panturrilhas.get()),float(imc)]]
+                
+               
+                exercicios.append(classifier.predict(entrada_do_classificador)[0])
+               
+
+            print(c.BOLD+"\n\nFicha:\nExercicios:"+c.FAIL)
+
+            porcentagem = 0
+            x=0
+            for exercicio in exercicios:
+               
+                x+=1
+
+                if(exercicio in expected):
+                    porcentagem+=part_porc
+                    
+    
+            
+            
+            print("-----------------------"+c.ENDC)
+            #self.exerc = Label(self.exerciciosRetornados, text= "-----------------------")
+            #self.exerc.pack()
+
+
+            self.porcentagem_acerto = Label(self.exerciciosRetornados, text= "[" + str(ultimo_var) + "] Porcentagem de acerto: " + str(porcentagem))
+            self.porcentagem_acerto.pack()
+            
+            print(porcentagem)
+
+            
+            if(porcentagem > 30):
+                acuracia = acuracia + 1
+
+            teste.append(exercicios)
+           
+            self.gerarBanco()
+            
+        else:
+            self.mensagem["text"] = "Preencha os campos"
+            print('input required') 
+       
 
     #Método gerar ficha
     def gerarFicha(self):
@@ -706,10 +869,16 @@ class Application:
                 saidas = df[lista_saidas[x]]
                 classifier = MultinomialNB()
                 classifier.fit(entrada.values, saidas.values)
-                entrada_do_classificador = [[int(self.idade.get()),float(self.altura.get()),float(self.peso.get()),int( self.hipertrofia.get()),int(self.lentes.get()),int(self.alergia.get()),int(
-                self.tabagista.get()),int(self.bebidas.get()),int(self.medicamentos.get()),int(self.epilepsia.get()),int(self.convulsao.get()),int(self.doenca.get()),int(
-                self.cirurgia.get()),int(self.corte.get()),int(self.abrasao.get()),int(self.inchaco.get()),float(self.ombro.get()),float(self.torax.get()),float(self.cintura.get()),float(self.quadris.get()),float(
-                self.pescoco.get()),float(self.biceps.get()),float(self.antebraco.get()),float(self.peito.get()),float(self.coxas.get()),float(self.panturrilhas.get()),float(imc)]]
+                entrada_do_classificador = [[int(self.idade.get()),float(self.altura.get()),
+                float(self.peso.get()),
+                int( self.hipertrofia.get()),int(self.lentes.get()),int(self.alergia.get()),int(
+                self.tabagista.get()),int(self.bebidas.get()),int(self.medicamentos.get()),
+                int(self.epilepsia.get()),int(self.convulsao.get()),int(self.doenca.get()),int(
+                self.cirurgia.get()),int(self.corte.get()),int(self.abrasao.get()),
+                int(self.inchaco.get()),float(self.ombro.get()),float(self.torax.get()),
+                float(self.cintura.get()),float(self.quadris.get()),float(
+                self.pescoco.get()),float(self.biceps.get()),float(self.antebraco.get()),
+                float(self.peito.get()),float(self.coxas.get()),float(self.panturrilhas.get()),float(imc)]]
                 
                 #print(entrada_do_classificador)
                 exercicios.append(classifier.predict(entrada_do_classificador)[0])
@@ -743,9 +912,7 @@ class Application:
             
             print(porcentagem)
            
-            # if(porcentagem < 63):
-            #     self.gerarBanco()
-            #print(exercicios)  
+            
         else:
             self.mensagem["text"] = "Preencha os campos"
             print('input required') 
@@ -754,8 +921,8 @@ class Application:
 
 root = Tk()
 root.title("Sistema de evolução continua em processamento de fichas de musculação baseado em machine learning")
-root.resizable(False,False)
-root.geometry("800x800")
+root.resizable(False,True)
+root.geometry("800x700")
 Application(root)
 root.mainloop()
 

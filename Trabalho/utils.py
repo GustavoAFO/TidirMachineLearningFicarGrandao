@@ -25,3 +25,30 @@ class cores:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # if(porcentagem < 63):
+            #     self.gerarBanco()
+            #print(exercicios)  
